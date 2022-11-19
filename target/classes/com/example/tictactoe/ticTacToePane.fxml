@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tictactoe.HelloController">
+   <children>
+      <HBox layoutX="34.0" layoutY="50.0" prefHeight="300.0" prefWidth="300.0">
+         <children>
+            <VBox prefHeight="300.0" prefWidth="100.0">
+               <children>
+                  <Button fx:id="bGame00" disable="true" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#bGameClick00" prefHeight="100.0" prefWidth="100.0" />
+                  <Button fx:id="bGame10" disable="true" focusTraversable="false" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#bGameClick10" prefHeight="100.0" prefWidth="100.0" />
+                  <Button fx:id="bGame20" disable="true" focusTraversable="false" layoutX="10.0" layoutY="110.0" mnemonicParsing="false" onMouseClicked="#bGameClick20" prefHeight="100.0" prefWidth="100.0" />
+               </children>
+            </VBox>
+            <VBox layoutX="10.0" layoutY="10.0" prefHeight="300.0" prefWidth="100.0">
+               <children>
+                  <Button fx:id="bGame01" disable="true" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#bGameClick01" prefHeight="100.0" prefWidth="100.0" />
+                  <Button fx:id="bGame11" disable="true" focusTraversable="false" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#bGameClick11" prefHeight="100.0" prefWidth="100.0" />
+                  <Button fx:id="bGame21" disable="true" focusTraversable="false" layoutX="10.0" layoutY="110.0" mnemonicParsing="false" onMouseClicked="#bGameClick21" prefHeight="100.0" prefWidth="100.0" />
+               </children>
+            </VBox>
+            <VBox layoutX="110.0" layoutY="10.0" prefHeight="300.0" prefWidth="100.0">
+               <children>
+                  <Button fx:id="bGame02" disable="true" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#bGameClick02" prefHeight="100.0" prefWidth="100.0" />
+                  <Button fx:id="bGame12" disable="true" focusTraversable="false" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#bGameClick12" prefHeight="100.0" prefWidth="100.0" />
+                  <Button fx:id="bGame22" disable="true" focusTraversable="false" layoutX="10.0" layoutY="110.0" mnemonicParsing="false" onMouseClicked="#bGameClick22" prefHeight="100.0" prefWidth="100.0" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <Label fx:id="lChooseGameMod" layoutX="408.0" layoutY="36.0" text="Wybierz tryb gry!">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <ChoiceBox fx:id="cbGameMods" layoutX="401.0" layoutY="63.0" prefWidth="150.0" />
+      <Button fx:id="bConfirm" layoutX="442.0" layoutY="103.0" mnemonicParsing="false" onMouseClicked="#bConfirmClick" text="Zatwierdź" />
+      <Label fx:id="lPlayer1" layoutX="457.0" layoutY="158.0" text="Gracz 1" />
+      <TextField fx:id="tfPlayer1" layoutX="402.0" layoutY="187.0" prefHeight="18.0" prefWidth="150.0" />
+      <Label fx:id="lPlayer2" layoutX="457.0" layoutY="230.0" text="Gracz 2" />
+      <TextField fx:id="tfPlayer2" layoutX="402.0" layoutY="254.0" prefHeight="18.0" prefWidth="150.0" />
+      <Button fx:id="bStart" layoutX="451.0" layoutY="295.0" mnemonicParsing="false" onMouseClicked="#bStartClick" text="START" />
+      <Button fx:id="bReset" layoutX="450.0" layoutY="350.0" mnemonicParsing="false" onMouseClicked="#bResetClick" text="RESET" />
+   </children>
+</AnchorPane>
