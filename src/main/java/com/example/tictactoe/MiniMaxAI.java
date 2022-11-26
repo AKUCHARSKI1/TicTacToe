@@ -21,7 +21,7 @@ public class MiniMaxAI {
             for (int row = 0; row < 3; row++) {
                 for (int col = 0; col < 3; col++) {
                     if (board[row][col] == '_') {
-                        board[row][col] = 'x';
+                        board[row][col] = 'o';
                         highestVal = Math.max(highestVal, miniMax(board,
                                 depth - 1, true));
                         board[row][col] = '_';
@@ -35,7 +35,7 @@ public class MiniMaxAI {
             for (int row = 0; row < 3; row++) {
                 for (int col = 0; col < 3; col++) {
                     if (board[row][col] == '_') {
-                        board[row][col] = 'o';
+                        board[row][col] = 'x';
                         lowestVal = Math.min(lowestVal, miniMax(board,
                                 depth - 1, false));
                         board[row][col] = '_';
@@ -59,7 +59,7 @@ public class MiniMaxAI {
             for (int col = 0; col < 3; col++) {
                 if (board[row][col] == '_') {
                     board[row][col] = 'x';
-                    int moveValue = miniMax(board, MAX_DEPTH, false);
+                    int moveValue = miniMax(board, MAX_DEPTH, true);
                     board[row][col] = '_';
                     if (moveValue > bestValue) {
                         bestMove[0] = row;

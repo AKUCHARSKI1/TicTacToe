@@ -143,8 +143,8 @@ public class HelloController {
     @FXML
     protected void computerGame(Button button) {
 
+        counter--;
         if (who == 1) {
-            counter--;
             lChooseGameMod.setText("Kolej gracza: Komputer");
             button.setText("x");
             if (button == bGame00) board[0][0] = 'x';
@@ -167,7 +167,12 @@ public class HelloController {
             if (counter > 1) {
                 int[] bestMove = getBestMove(board);
                 System.out.println(bestMove[0] + " " + bestMove[1]);
-                board[bestMove[0]][bestMove[1]] = 'o';
+                if(bestMove[0]>=0 && bestMove[1]>=0){
+                    board[bestMove[0]][bestMove[1]] = 'o';
+                } else {
+                    lChooseGameMod.setText("Remis!!!");//sprawdzanie wygranej trzeba zrobic
+                }
+
                 for (int i = 0; i < 3; i++) {
                     for (int j = 0; j < 3; j++) System.out.print(board[i][j] + " ");
                     System.out.println();
@@ -183,7 +188,6 @@ public class HelloController {
                 if (bestMove[0] == 2 && bestMove[1] == 2) bGameClick22();
             }
         } else {
-            counter--;
             lChooseGameMod.setText("Kolej gracza: " + player1);
 
 
