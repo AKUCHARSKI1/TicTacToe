@@ -9,30 +9,56 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tictactoe.HelloController">
    <children>
       <HBox layoutX="34.0" layoutY="50.0" prefHeight="300.0" prefWidth="300.0">
          <children>
             <VBox prefHeight="300.0" prefWidth="100.0">
                <children>
-                  <Button fx:id="bGame00" disable="true" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#bGameClick00" prefHeight="100.0" prefWidth="100.0" />
-                  <Button fx:id="bGame10" disable="true" focusTraversable="false" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#bGameClick10" prefHeight="100.0" prefWidth="100.0" />
-                  <Button fx:id="bGame20" disable="true" focusTraversable="false" layoutX="10.0" layoutY="110.0" mnemonicParsing="false" onMouseClicked="#bGameClick20" prefHeight="100.0" prefWidth="100.0" />
+                  <Button fx:id="bGame00" disable="true" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#bGameClick00" prefHeight="100.0" prefWidth="100.0">
+                     <font>
+                        <Font name="System Bold" size="48.0" />
+                     </font></Button>
+                  <Button fx:id="bGame10" disable="true" focusTraversable="false" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#bGameClick10" prefHeight="100.0" prefWidth="100.0">
+                     <font>
+                        <Font name="System Bold" size="48.0" />
+                     </font></Button>
+                  <Button fx:id="bGame20" disable="true" focusTraversable="false" layoutX="10.0" layoutY="110.0" mnemonicParsing="false" onMouseClicked="#bGameClick20" prefHeight="100.0" prefWidth="100.0">
+                     <font>
+                        <Font name="System Bold" size="48.0" />
+                     </font></Button>
                </children>
             </VBox>
             <VBox layoutX="10.0" layoutY="10.0" prefHeight="300.0" prefWidth="100.0">
                <children>
-                  <Button fx:id="bGame01" disable="true" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#bGameClick01" prefHeight="100.0" prefWidth="100.0" />
-                  <Button fx:id="bGame11" disable="true" focusTraversable="false" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#bGameClick11" prefHeight="100.0" prefWidth="100.0" />
-                  <Button fx:id="bGame21" disable="true" focusTraversable="false" layoutX="10.0" layoutY="110.0" mnemonicParsing="false" onMouseClicked="#bGameClick21" prefHeight="100.0" prefWidth="100.0" />
+                  <Button fx:id="bGame01" disable="true" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#bGameClick01" prefHeight="100.0" prefWidth="100.0">
+                     <font>
+                        <Font name="System Bold" size="48.0" />
+                     </font></Button>
+                  <Button fx:id="bGame11" disable="true" focusTraversable="false" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#bGameClick11" prefHeight="100.0" prefWidth="100.0">
+                     <font>
+                        <Font name="System Bold" size="48.0" />
+                     </font></Button>
+                  <Button fx:id="bGame21" disable="true" focusTraversable="false" layoutX="10.0" layoutY="110.0" mnemonicParsing="false" onMouseClicked="#bGameClick21" prefHeight="100.0" prefWidth="100.0">
+                     <font>
+                        <Font name="System Bold" size="48.0" />
+                     </font></Button>
                </children>
             </VBox>
             <VBox layoutX="110.0" layoutY="10.0" prefHeight="300.0" prefWidth="100.0">
                <children>
-                  <Button fx:id="bGame02" disable="true" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#bGameClick02" prefHeight="100.0" prefWidth="100.0" />
-                  <Button fx:id="bGame12" disable="true" focusTraversable="false" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#bGameClick12" prefHeight="100.0" prefWidth="100.0" />
-                  <Button fx:id="bGame22" disable="true" focusTraversable="false" layoutX="10.0" layoutY="110.0" mnemonicParsing="false" onMouseClicked="#bGameClick22" prefHeight="100.0" prefWidth="100.0" />
+                  <Button fx:id="bGame02" disable="true" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#bGameClick02" prefHeight="100.0" prefWidth="100.0">
+                     <font>
+                        <Font name="System Bold" size="48.0" />
+                     </font></Button>
+                  <Button fx:id="bGame12" disable="true" focusTraversable="false" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#bGameClick12" prefHeight="100.0" prefWidth="100.0">
+                     <font>
+                        <Font name="System Bold" size="48.0" />
+                     </font></Button>
+                  <Button fx:id="bGame22" disable="true" focusTraversable="false" layoutX="10.0" layoutY="110.0" mnemonicParsing="false" onMouseClicked="#bGameClick22" prefHeight="100.0" prefWidth="100.0">
+                     <font>
+                        <Font name="System Bold" size="48.0" />
+                     </font></Button>
                </children>
             </VBox>
          </children>

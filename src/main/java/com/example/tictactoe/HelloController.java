@@ -16,7 +16,7 @@ public class HelloController {
     }
 
     ObservableList<String> gameModeChoiceBoxItems =
-            FXCollections.observableArrayList("Gra lokalna", "Gra online", "Gra vs Komputer");
+            FXCollections.observableArrayList("Gra lokalna", "Gra vs Komputer");
 
     int who = 1;
     public static int counter = 9;
@@ -260,10 +260,6 @@ public class HelloController {
             tfPlayer1.setVisible(true);
             lPlayer2.setVisible(true);
             tfPlayer2.setVisible(true);
-        }
-        if (gameMode.equals("Gra online")) {
-            lPlayer1.setVisible(true);
-            tfPlayer1.setVisible(true);
         }
         if (gameMode.equals("Gra vs Komputer")) {
             lPlayer1.setVisible(true);
