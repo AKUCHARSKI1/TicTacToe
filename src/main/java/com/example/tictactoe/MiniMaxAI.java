@@ -6,7 +6,7 @@ public class MiniMaxAI {
     private MiniMaxAI() {
     }
 
-    public static int miniMax(char board[][], int depth, boolean isMax) {
+    public static int miniMax(char[][] board, int depth, boolean isMax) {
         int boardVal = evaluateBoard(board);
 
         // Terminal node (win/lose/draw) or max depth reached.
@@ -53,7 +53,7 @@ public class MiniMaxAI {
      * @param board Board to evaluate
      * @return Coordinates of best move
      */
-    public static int[] getBestMove(char board[][]) {
+    public static int[] getBestMove(char[][] board) {
         int[] bestMove = new int[]{-1, -1};
         int bestValue = Integer.MIN_VALUE;
 
@@ -75,7 +75,7 @@ public class MiniMaxAI {
     }
 
 
-    private static int evaluateBoard(char board[][]) {
+    private static int evaluateBoard(char[][] board) {
         int rowSumX = 0;
         int rowSumO = 0;
 
