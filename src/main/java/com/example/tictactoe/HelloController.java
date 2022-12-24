@@ -190,16 +190,17 @@ public class HelloController {
         } else {
             lChooseGameMod.setText("Kolej gracza: " + player1);
 
-
-            button.setText("o");
-            if (game("o")) {
-                endGame();
-                lChooseGameMod.setText("Wygrał " + player2);
-            } else if (counter == 0) {
-                bReset.setVisible(true);
-                lChooseGameMod.setText("Remis!!!");
-            }
-            who = 1;
+            if (!game("x")) {
+                button.setText("o");
+                if (game("o")) {
+                    endGame();
+                    lChooseGameMod.setText("Wygrał " + player2);
+                } else if (counter == 0) {
+                    bReset.setVisible(true);
+                    lChooseGameMod.setText("Remis!!!");
+                }
+                who = 1;
+            } else lChooseGameMod.setText("Wygrał " + player1);
         }
         System.out.println(counter);
         button.setDisable(true);
