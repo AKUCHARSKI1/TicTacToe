@@ -80,9 +80,9 @@ public class MiniMaxAI {
                 if(board[row][col] == 'x') rowSumX++;
             }
             if (rowSumO == 3) {
-                return 10;
+                return 15;
             } else if (rowSumX == 3) {
-                return -15;
+                return -10;
             }
             rowSumX = 0;
             rowSumO = 0;
@@ -98,9 +98,9 @@ public class MiniMaxAI {
                 if(board[row][col] == 'x') rowSumX++;
             }
             if (rowSumO == 3) {
-                return 10;
+                return 15;
             } else if (rowSumX == 3) {
-                return -15;
+                return -10;
             }
             rowSumX = 0;
             rowSumO = 0;
@@ -115,9 +115,9 @@ public class MiniMaxAI {
             if(board[i][i] == 'o') rowSumO++;
         }
         if (rowSumO == 3) {
-            return 10;
+            return 15;
         } else if (rowSumX == 3) {
-            return -15;
+            return -10;
         }
         rowSumX = 0;
         rowSumO = 0;
@@ -127,9 +127,9 @@ public class MiniMaxAI {
             if(board[i][2-i] == 'o') rowSumO++;
         }
         if (rowSumO == 3) {
-            return 10;
+            return 15;
         } else if (rowSumX == 3) {
-            return -15;
+            return -10;
         }
 
         return 0;
