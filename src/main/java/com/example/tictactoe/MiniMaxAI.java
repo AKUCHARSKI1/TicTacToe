@@ -23,7 +23,7 @@ public class MiniMaxAI {
                     if (board[row][col] == '_') {
                         board[row][col] = 'o';
                         highestVal = Math.max(highestVal, miniMax(board,
-                                depth - 1, false));
+                                depth - 1, true));
                         board[row][col] = '_';
                     }
                 }
@@ -48,11 +48,6 @@ public class MiniMaxAI {
         }
     }
 
-    /**
-     * Evaluate every legal move on the board and return the best one.
-     * @param board Board to evaluate
-     * @return Coordinates of best move
-     */
     public static int[] getBestMove(char[][] board) {
         int[] bestMove = new int[]{-1, -1};
         int bestValue = Integer.MIN_VALUE;
@@ -87,7 +82,7 @@ public class MiniMaxAI {
             if (rowSumO == 3) {
                 return 10;
             } else if (rowSumX == 3) {
-                return -10;
+                return -15;
             }
             rowSumX = 0;
             rowSumO = 0;
@@ -105,7 +100,7 @@ public class MiniMaxAI {
             if (rowSumO == 3) {
                 return 10;
             } else if (rowSumX == 3) {
-                return -10;
+                return -15;
             }
             rowSumX = 0;
             rowSumO = 0;
@@ -122,7 +117,7 @@ public class MiniMaxAI {
         if (rowSumO == 3) {
             return 10;
         } else if (rowSumX == 3) {
-            return -10;
+            return -15;
         }
         rowSumX = 0;
         rowSumO = 0;
@@ -134,7 +129,7 @@ public class MiniMaxAI {
         if (rowSumO == 3) {
             return 10;
         } else if (rowSumX == 3) {
-            return -10;
+            return -15;
         }
 
         return 0;

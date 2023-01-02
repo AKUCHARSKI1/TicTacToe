@@ -24,7 +24,7 @@ public class HelloController {
     String player1 = "";
     String player2 = "";
 
-    char board[][] = {{'_', '_', '_'},
+    char[][] board = {{'_', '_', '_'},
             {'_', '_', '_'},
             {'_', '_', '_'}};
 
@@ -144,6 +144,7 @@ public class HelloController {
     protected void computerGame(Button button) {
 
         counter--;
+        boolean end = false;
         if (who == 1) {
             lChooseGameMod.setText("Kolej gracza: Komputer");
             button.setText("x");
@@ -159,18 +160,21 @@ public class HelloController {
             if (game("x")) {
                 endGame();
                 lChooseGameMod.setText("Wygrał " + player1);
+                end = true;
             } else if (counter == 0) {
                 bReset.setVisible(true);
                 lChooseGameMod.setText("Remis!!!");
             }
             who = 2;
-            if (counter > 1) {
+            if (counter > 1 && !end) {
                 int[] bestMove = getBestMove(board);
                 System.out.println(bestMove[0] + " " + bestMove[1]);
                 if(bestMove[0]>=0 && bestMove[1]>=0){
                     board[bestMove[0]][bestMove[1]] = 'o';
                 } else {
-                    lChooseGameMod.setText("Remis!!!");//sprawdzanie wygranej trzeba zrobic
+                    lChooseGameMod.setText("Komputer nie widzi\n szans na wygraną\n- WYGRAŁEŚ!!!");
+                    bReset.setVisible(true);
+                    endGame();
                 }
 
                 for (int i = 0; i < 3; i++) {
@@ -194,7 +198,7 @@ public class HelloController {
                 button.setText("o");
                 if (game("o")) {
                     endGame();
-                    lChooseGameMod.setText("Wygrał " + player2);
+                    lChooseGameMod.setText("Wygrał Komputer");
                 } else if (counter == 0) {
                     bReset.setVisible(true);
                     lChooseGameMod.setText("Remis!!!");
