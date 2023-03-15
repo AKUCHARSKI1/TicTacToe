@@ -7,8 +7,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.shape.Ellipse;
 
-import static com.example.tictactoe.MiniMaxAI.getBestMove;
 
 public class HelloController {
 
@@ -18,15 +20,10 @@ public class HelloController {
     ObservableList<String> gameModeChoiceBoxItems =
             FXCollections.observableArrayList("Gra lokalna", "Gra vs Komputer");
 
-    int who = 1;
-    public static int counter = 9;
-    String gameMode = "";
-    String player1 = "";
-    String player2 = "";
-
-    char[][] board = {{'_', '_', '_'},
-            {'_', '_', '_'},
-            {'_', '_', '_'}};
+    Game game;
+    Image imageWin = new Image(getClass().getResourceAsStream("/img/winner.png"));
+    Image imageLose = new Image(getClass().getResourceAsStream("/img/loser.png"));
+    Image imageTie = new Image(getClass().getResourceAsStream("/img/tie.png"));
 
     @FXML
     private Button bGame00;
@@ -51,8 +48,6 @@ public class HelloController {
     @FXML
     private Button bStart;
     @FXML
-    private Button bReset;
-    @FXML
     private Label lChooseGameMod;
     @FXML
     private TextField tfPlayer1;
@@ -64,6 +59,10 @@ public class HelloController {
     private Label lPlayer2;
     @FXML
     private ChoiceBox cbGameMods;
+    @FXML
+    private Ellipse winEllipse;
+    @FXML
+    private ImageView imageView;
 
     public void initialize() {
         cbGameMods.setItems(gameModeChoiceBoxItems);
@@ -71,190 +70,12 @@ public class HelloController {
         lPlayer2.setVisible(false);
         tfPlayer1.setVisible(false);
         tfPlayer2.setVisible(false);
+        imageView.setVisible(false);
         bStart.setVisible(false);
-        bReset.setVisible(false);
+        winEllipse.setVisible(false);
     }
 
-    protected boolean game(String sign) {
-        return bGame00.getText().equals(sign) && bGame01.getText().equals(sign) && bGame02.getText().equals(sign) ||
-                bGame10.getText().equals(sign) && bGame11.getText().equals(sign) && bGame12.getText().equals(sign) ||
-                bGame20.getText().equals(sign) && bGame21.getText().equals(sign) && bGame22.getText().equals(sign) ||
-                bGame00.getText().equals(sign) && bGame10.getText().equals(sign) && bGame20.getText().equals(sign) ||
-                bGame01.getText().equals(sign) && bGame11.getText().equals(sign) && bGame21.getText().equals(sign) ||
-                bGame02.getText().equals(sign) && bGame12.getText().equals(sign) && bGame22.getText().equals(sign) ||
-                bGame00.getText().equals(sign) && bGame11.getText().equals(sign) && bGame22.getText().equals(sign) ||
-                bGame02.getText().equals(sign) && bGame11.getText().equals(sign) && bGame20.getText().equals(sign);
-    }
-
-    protected void endGame() {
-        bGame00.setDisable(true);
-        bGame01.setDisable(true);
-        bGame02.setDisable(true);
-        bGame10.setDisable(true);
-        bGame11.setDisable(true);
-        bGame12.setDisable(true);
-        bGame20.setDisable(true);
-        bGame21.setDisable(true);
-        bGame22.setDisable(true);
-        bReset.setVisible(true);
-    }
-
-
-    @FXML
-    protected void bGameClick(Button button) {
-        if (gameMode.equals("Gra lokalna")) localGame(button);
-        if (gameMode.equals("Gra vs Komputer")) computerGame(button);
-
-    }
-
-
-    @FXML
-    protected void localGame(Button button) {
-        if (who == 1) {
-            counter--;
-            lChooseGameMod.setText("Kolej gracza: " + player2);
-            button.setText("x");
-            if (game("x")) {
-                endGame();
-                lChooseGameMod.setText("Wygrał " + player1);
-            } else if (counter == 0) {
-                bReset.setVisible(true);
-                lChooseGameMod.setText("Remis!!!");
-            }
-            who = 2;
-        } else {
-            counter--;
-            lChooseGameMod.setText("Kolej gracza: " + player1);
-            button.setText("o");
-            if (game("o")) {
-                endGame();
-                lChooseGameMod.setText("Wygrał " + player2);
-            } else if (counter == 0) {
-                bReset.setVisible(true);
-                lChooseGameMod.setText("Remis!!!");
-            }
-            who = 1;
-        }
-        System.out.println(counter);
-        button.setDisable(true);
-    }
-
-
-    @FXML
-    protected void computerGame(Button button) {
-
-        counter--;
-        boolean end = false;
-        if (who == 1) {
-            lChooseGameMod.setText("Kolej gracza: Komputer");
-            button.setText("x");
-            if (button == bGame00) board[0][0] = 'x';
-            if (button == bGame01) board[0][1] = 'x';
-            if (button == bGame02) board[0][2] = 'x';
-            if (button == bGame10) board[1][0] = 'x';
-            if (button == bGame11) board[1][1] = 'x';
-            if (button == bGame12) board[1][2] = 'x';
-            if (button == bGame20) board[2][0] = 'x';
-            if (button == bGame21) board[2][1] = 'x';
-            if (button == bGame22) board[2][2] = 'x';
-            if (game("x")) {
-                endGame();
-                lChooseGameMod.setText("Wygrał " + player1);
-                end = true;
-            } else if (counter == 0) {
-                bReset.setVisible(true);
-                lChooseGameMod.setText("Remis!!!");
-            }
-            who = 2;
-            if (counter > 1 && !end) {
-                int[] bestMove = getBestMove(board);
-                System.out.println(bestMove[0] + " " + bestMove[1]);
-                if(bestMove[0]>=0 && bestMove[1]>=0){
-                    board[bestMove[0]][bestMove[1]] = 'o';
-                } else {
-                    lChooseGameMod.setText("Komputer nie widzi\n szans na wygraną\n- WYGRAŁEŚ!!!");
-                    bReset.setVisible(true);
-                    endGame();
-                }
-
-                for (int i = 0; i < 3; i++) {
-                    for (int j = 0; j < 3; j++) System.out.print(board[i][j] + " ");
-                    System.out.println();
-                }
-                if (bestMove[0] == 0 && bestMove[1] == 0) bGameClick00();
-                if (bestMove[0] == 0 && bestMove[1] == 1) bGameClick01();
-                if (bestMove[0] == 0 && bestMove[1] == 2) bGameClick02();
-                if (bestMove[0] == 1 && bestMove[1] == 0) bGameClick10();
-                if (bestMove[0] == 1 && bestMove[1] == 1) bGameClick11();
-                if (bestMove[0] == 1 && bestMove[1] == 2) bGameClick12();
-                if (bestMove[0] == 2 && bestMove[1] == 0) bGameClick20();
-                if (bestMove[0] == 2 && bestMove[1] == 1) bGameClick21();
-                if (bestMove[0] == 2 && bestMove[1] == 2) bGameClick22();
-            }
-        } else {
-            lChooseGameMod.setText("Kolej gracza: " + player1);
-
-            if (!game("x")) {
-                button.setText("o");
-                if (game("o")) {
-                    endGame();
-                    lChooseGameMod.setText("Wygrał Komputer");
-                } else if (counter == 0) {
-                    bReset.setVisible(true);
-                    lChooseGameMod.setText("Remis!!!");
-                }
-                who = 1;
-            } else lChooseGameMod.setText("Wygrał " + player1);
-        }
-        System.out.println(counter);
-        button.setDisable(true);
-    }
-
-    @FXML
-    protected void bGameClick00() {
-        bGameClick(bGame00);
-    }
-
-    @FXML
-    protected void bGameClick01() {
-        bGameClick(bGame01);
-    }
-
-    @FXML
-    protected void bGameClick02() {
-        bGameClick(bGame02);
-    }
-
-    @FXML
-    protected void bGameClick10() {
-        bGameClick(bGame10);
-    }
-
-    @FXML
-    protected void bGameClick11() {
-        bGameClick(bGame11);
-    }
-
-    @FXML
-    protected void bGameClick12() {
-        bGameClick(bGame12);
-    }
-
-    @FXML
-    protected void bGameClick20() {
-        bGameClick(bGame20);
-    }
-
-    @FXML
-    protected void bGameClick21() {
-        bGameClick(bGame21);
-    }
-
-    @FXML
-    protected void bGameClick22() {
-        bGameClick(bGame22);
-    }
-
+    //selecting a game mode
     @FXML
     protected void bConfirmClick() {
         System.out.println(cbGameMods.getValue());
@@ -272,39 +93,65 @@ public class HelloController {
 
         }
         bStart.setVisible(true);
-        //bGame00.setDisable(false);
+        bConfirm.setDisable(true);
+        cbGameMods.setDisable(true);
     }
 
+
+
+
+    //determining player names and creating the game
     @FXML
     protected void bStartClick() {
-        player1 = "Gracz1";
-        player2 = "Gracz2";
-        System.out.println(cbGameMods.getValue());
-        gameMode = (String) cbGameMods.getValue();
-        cbGameMods.setDisable(true);
+        String gameMode = cbGameMods.getValue().toString();
+        //local game
         if (gameMode.equals("Gra lokalna")) {
-            if (!tfPlayer1.getText().equals("")) player1 = tfPlayer1.getText();
-            if (!tfPlayer2.getText().equals("")) player2 = tfPlayer2.getText();
-            if (player1.equals(player2)) {
-                player1 += "1";
-                player2 += "2";
+            //two players with usernames
+            if (!tfPlayer1.getText().equals("") && !tfPlayer2.getText().equals("")){
+                //the same two players
+                if (tfPlayer1.getText().equals(tfPlayer2.getText())){
+                    tfPlayer1.setText(tfPlayer2.getText() + "1");
+                    tfPlayer2.setText(tfPlayer2.getText() + "2");
+                }
+                game = new Game(gameMode, tfPlayer1.getText(), tfPlayer2.getText());
             }
-            System.out.println(player1);
-            System.out.println(player2);
+            //first player with username
+            else if (!tfPlayer1.getText().equals("") && tfPlayer2.getText().equals("")){
+                game = new Game(gameMode, tfPlayer1.getText(), "Player2");
+            }
+            //second player with username
+            else if (tfPlayer1.getText().equals("") && !tfPlayer2.getText().equals("")){
+                game = new Game(gameMode, "Player1", tfPlayer2.getText());
+            }
+            //two players without usernames
+            else {
+                game = new Game(gameMode, "Player1", "Player2");
+            }
         }
-        if (gameMode.equals("Gra online")) {
+        else {
+            //game against computer
             lPlayer1.setVisible(true);
             tfPlayer1.setVisible(true);
-            if (!tfPlayer1.getText().equals("")) player1 = tfPlayer1.getText();
-        }
-        if (gameMode.equals("Gra vs Komputer")) {
-            lPlayer1.setVisible(true);
-            tfPlayer1.setVisible(true);
-            if (!tfPlayer1.getText().equals("")) player1 = tfPlayer1.getText();
+            if (!tfPlayer1.getText().equals("")){
+                game = new Game(gameMode, tfPlayer1.getText());
+            }
+            else {
+                game = new Game(gameMode, "Player1");
+            }
 
         }
-        lChooseGameMod.setText("Kolej gracza: " + player1);
         cbGameMods.setVisible(false);
+        preparePane();
+        if(game.getWhoseTurn() == 1) lChooseGameMod.setText("Kolej gracza: " + game.getPlayer1() + " - x");
+        else {
+            lChooseGameMod.setText("Kolej gracza: " + game.getPlayer2() + " - x");
+            computerGame();
+        }
+        lChooseGameMod.setLayoutX(375);
+    }
+
+    //prepare pane to game
+    protected void preparePane(){
         bConfirm.setVisible(false);
         lPlayer1.setVisible(false);
         lPlayer2.setVisible(false);
@@ -322,28 +169,271 @@ public class HelloController {
         bGame22.setDisable(false);
     }
 
-    @FXML
-    protected void bResetClick() {
-        bReset.setVisible(false);
-        lChooseGameMod.setText("Wybierz tryb gry!");
-        cbGameMods.setVisible(true);
-        cbGameMods.setDisable(false);
-        bConfirm.setVisible(true);
-        counter = 9;
-        bGame00.setText("");
-        bGame01.setText("");
-        bGame02.setText("");
-        bGame10.setText("");
-        bGame11.setText("");
-        bGame12.setText("");
-        bGame20.setText("");
-        bGame21.setText("");
-        bGame22.setText("");
-        for (int i = 0; i < 3; i++)
-            for (int j = 0; j < 3; j++)
-                board[i][j] = '_';
-
-        who = 1;
+    protected void blockBoard(){
+        bGame00.setDisable(true);
+        bGame01.setDisable(true);
+        bGame02.setDisable(true);
+        bGame10.setDisable(true);
+        bGame11.setDisable(true);
+        bGame12.setDisable(true);
+        bGame20.setDisable(true);
+        bGame21.setDisable(true);
+        bGame22.setDisable(true);
     }
+
+    protected void prepareWinEllipseParam(double x, double y, double radx, double rady){
+        winEllipse.setLayoutX(x);
+        winEllipse.setLayoutY(y);
+        winEllipse.setRadiusX(radx);
+        winEllipse.setRadiusY(rady);
+    }
+
+    protected void prepareWinEllipse(int[] result){
+        winEllipse.setVisible(true);
+        if(result[1] == 0 && result[2] == 0 && result[5] == 0 && result[6] == 2) {//row1
+            prepareWinEllipseParam(185, 105, 150, 35);
+        } else if(result[1] == 1 && result[2] == 0 && result[5] == 1 && result[6] == 2){//row2
+            prepareWinEllipseParam(185, 207, 150, 35);
+        }
+        else if(result[1] == 2 && result[2] == 0 && result[5] == 2 && result[6] == 2){//row3
+            prepareWinEllipseParam(185, 309, 150, 35);
+        }
+        else if(result[1] == 0 && result[2] == 0 && result[5] == 2 && result[6] == 0){//column1
+            prepareWinEllipseParam(85, 205, 35, 150);
+        }
+        else if(result[1] == 0 && result[2] == 1 && result[5] == 2 && result[6] == 1){//column2
+            prepareWinEllipseParam(185, 205, 35, 150);
+        }
+        else if(result[1] == 0 && result[2] == 2 && result[5] == 2 && result[6] == 2){//column3
+            prepareWinEllipseParam(285, 205, 35, 150);
+        }
+        else if(result[1] == 0 && result[2] == 0 && result[5] == 2 && result[6] == 2){//diagonal1
+            prepareWinEllipseParam(182, 205, 38, 190);
+            winEllipse.setRotate(-45);
+        }
+        else if(result[1] == 0 && result[2] == 2 && result[5] == 2 && result[6] == 0){//diagonal2
+            prepareWinEllipseParam(187, 205, 38, 190);
+            winEllipse.setRotate(45);
+        }
+
+    }
+
+    protected void setEndImage(char sign){
+        imageView.setVisible(true);
+        imageView.setLayoutX(370);
+        if(game.getGameMode().equals("Gra lokalna")) imageView.setImage(imageWin);
+        else {
+            if(sign == 'w') imageView.setImage(imageWin);
+            if(sign == 'l'){
+                imageView.setLayoutX(400);
+                imageView.setImage(imageLose);
+            }
+        }
+        imageView.setVisible(true);
+        imageView.setX(30);
+        imageView.setY(-50);
+        if(sign == 't') {
+            imageView.setImage(imageTie);
+            imageView.setX(0);
+        }
+    }
+
+    protected void checkCurrentGameStatus(){
+        if(game.getCounter() != 0){
+            int[] resultX = {0,0,0,0,0,0,0};
+            int[] resultY = {0,0,0,0,0,0,0};
+            game.win('x', resultX);
+            game.win('o', resultY);
+            if(resultX[0]==1){
+                lChooseGameMod.setLayoutX(410);
+                if(game.getWhoStart() == 1){
+                    lChooseGameMod.setText("Wygrał " + game.getPlayer1());
+                    setEndImage('w');
+                }
+                else{
+                    lChooseGameMod.setText("Wygrał " + game.getPlayer2());
+                    setEndImage('l');
+                }
+                prepareWinEllipse(resultX);
+                blockBoard();
+            }
+            else if(resultY[0]==1){
+                lChooseGameMod.setLayoutX(410);
+                if(game.getWhoStart() == 2){
+
+                    lChooseGameMod.setText("Wygrał " + game.getPlayer1());
+                    setEndImage('w');
+                }
+                else{
+                    lChooseGameMod.setText("Wygrał " + game.getPlayer2());
+                    setEndImage('l');
+                }
+                prepareWinEllipse(resultY);
+                blockBoard();
+            }
+            for (int x:resultX) {
+                System.out.print(x + " ");
+            }
+            System.out.println(" X ");
+            for (int y:resultY) {
+                System.out.print(y + " ");
+            }
+            System.out.print(" Y ");
+            System.out.println();
+            System.out.println();
+        } else {
+            lChooseGameMod.setText("Remis!");
+            lChooseGameMod.setLayoutX(450);
+            setEndImage('t');
+        }
+    }
+
+    protected void computerGame(){
+        if(game.getGameMode().equals("Gra vs Komputer")){
+            int[] result = new int[2];
+            game.ComputerMove(result);
+            System.out.println(result);
+            if(result[0] == 0 && result[1] == 0) {
+                bGame00.setText(game.move(bGame00.getId(), lChooseGameMod));
+                bGame00.setDisable(true);
+            }
+            if(result[0] == 0 && result[1] == 1) {
+                bGame01.setText(game.move(bGame01.getId(), lChooseGameMod));
+                bGame01.setDisable(true);
+            }
+            if(result[0] == 0 && result[1] == 2) {
+                bGame02.setDisable(true);
+                bGame02.setText(game.move(bGame02.getId(), lChooseGameMod));
+            }
+            if(result[0] == 1 && result[1] == 0) {
+                bGame10.setDisable(true);
+                bGame10.setText(game.move(bGame10.getId(), lChooseGameMod));
+            }
+            if(result[0] == 1 && result[1] == 1) {
+                bGame11.setDisable(true);
+                bGame11.setText(game.move(bGame11.getId(), lChooseGameMod));
+            }
+            if(result[0] == 1 && result[1] == 2) {
+                bGame12.setDisable(true);
+                bGame12.setText(game.move(bGame12.getId(), lChooseGameMod));
+            }
+            if(result[0] == 2 && result[1] == 0) {
+                bGame20.setDisable(true);
+                bGame20.setText(game.move(bGame20.getId(), lChooseGameMod));
+            }
+            if(result[0] == 2 && result[1] == 1) {
+                bGame21.setDisable(true);
+                bGame21.setText(game.move(bGame21.getId(), lChooseGameMod));
+            }
+            if(result[0] == 2 && result[1] == 2) {
+                bGame22.setDisable(true);
+                bGame22.setText(game.move(bGame22.getId(), lChooseGameMod));
+            }
+        }
+    }
+
+    @FXML
+    protected void bGameClick00() {
+        bGame00.setText(game.move(bGame00.getId(), lChooseGameMod));
+        bGame00.setDisable(true);
+        checkCurrentGameStatus();
+        if(lChooseGameMod.getText().charAt(1) != 'W' && game.getGameMode().equals("Gra vs Komputer") && game.getCounter() != 0) {
+            computerGame();
+            checkCurrentGameStatus();
+        }
+    }
+
+
+
+    @FXML
+    protected void bGameClick01() {
+        bGame01.setText(game.move(bGame01.getId(), lChooseGameMod));
+        bGame01.setDisable(true);
+        checkCurrentGameStatus();
+        if(lChooseGameMod.getText().charAt(1) != 'W' && game.getGameMode().equals("Gra vs Komputer") && game.getCounter() != 0) {
+            computerGame();
+            checkCurrentGameStatus();
+        }
+
+    }
+
+    @FXML
+    protected void bGameClick02() {
+        bGame02.setText(game.move(bGame02.getId(), lChooseGameMod));
+        bGame02.setDisable(true);
+        checkCurrentGameStatus();
+        if(lChooseGameMod.getText().charAt(1) != 'W' && game.getGameMode().equals("Gra vs Komputer") && game.getCounter() != 0) {
+            computerGame();
+            checkCurrentGameStatus();
+        }
+    }
+
+    @FXML
+    protected void bGameClick10() {
+        bGame10.setText(game.move(bGame10.getId(), lChooseGameMod));
+        bGame10.setDisable(true);
+        checkCurrentGameStatus();
+        if(lChooseGameMod.getText().charAt(1) != 'W' && game.getGameMode().equals("Gra vs Komputer") && game.getCounter() != 0) {
+            computerGame();
+            checkCurrentGameStatus();
+        }
+    }
+
+    @FXML
+    protected void bGameClick11() {
+        bGame11.setText(game.move(bGame11.getId(), lChooseGameMod));
+        bGame11.setDisable(true);
+        checkCurrentGameStatus();
+        if(lChooseGameMod.getText().charAt(1) != 'W' && game.getGameMode().equals("Gra vs Komputer") && game.getCounter() != 0) {
+            computerGame();
+            checkCurrentGameStatus();
+        }
+    }
+
+    @FXML
+    protected void bGameClick12() {
+        bGame12.setText(game.move(bGame12.getId(), lChooseGameMod));
+        bGame12.setDisable(true);
+        checkCurrentGameStatus();
+        if(lChooseGameMod.getText().charAt(1) != 'W' && game.getGameMode().equals("Gra vs Komputer") && game.getCounter() != 0) {
+            computerGame();
+            checkCurrentGameStatus();
+        }
+    }
+
+    @FXML
+    protected void bGameClick20() {
+        bGame20.setText(game.move(bGame20.getId(), lChooseGameMod));
+        bGame20.setDisable(true);
+        checkCurrentGameStatus();
+        if(lChooseGameMod.getText().charAt(1) != 'W' && game.getGameMode().equals("Gra vs Komputer") && game.getCounter() != 0) {
+            computerGame();
+            checkCurrentGameStatus();
+        }
+    }
+
+    @FXML
+    protected void bGameClick21() {
+        bGame21.setText(game.move(bGame21.getId(), lChooseGameMod));
+        bGame21.setDisable(true);
+        checkCurrentGameStatus();
+        if(lChooseGameMod.getText().charAt(1) != 'W' && game.getGameMode().equals("Gra vs Komputer") && game.getCounter() != 0) {
+            computerGame();
+            checkCurrentGameStatus();
+        }
+    }
+
+    @FXML
+    protected void bGameClick22() {
+        bGame22.setText(game.move(bGame22.getId(), lChooseGameMod));
+        bGame22.setDisable(true);
+        checkCurrentGameStatus();
+        if(lChooseGameMod.getText().charAt(1) != 'W' && game.getGameMode().equals("Gra vs Komputer") && game.getCounter() != 0) {
+            computerGame();
+            checkCurrentGameStatus();
+        }
+    }
+
+
 
 }

@@ -4,9 +4,11 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Ellipse?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tictactoe.HelloController">
@@ -18,15 +20,18 @@
                   <Button fx:id="bGame00" disable="true" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#bGameClick00" prefHeight="100.0" prefWidth="100.0">
                      <font>
                         <Font name="System Bold" size="48.0" />
-                     </font></Button>
+                     </font>
+                  </Button>
                   <Button fx:id="bGame10" disable="true" focusTraversable="false" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#bGameClick10" prefHeight="100.0" prefWidth="100.0">
                      <font>
                         <Font name="System Bold" size="48.0" />
-                     </font></Button>
+                     </font>
+                  </Button>
                   <Button fx:id="bGame20" disable="true" focusTraversable="false" layoutX="10.0" layoutY="110.0" mnemonicParsing="false" onMouseClicked="#bGameClick20" prefHeight="100.0" prefWidth="100.0">
                      <font>
                         <Font name="System Bold" size="48.0" />
-                     </font></Button>
+                     </font>
+                  </Button>
                </children>
             </VBox>
             <VBox layoutX="10.0" layoutY="10.0" prefHeight="300.0" prefWidth="100.0">
@@ -75,6 +80,7 @@
       <Label fx:id="lPlayer2" layoutX="457.0" layoutY="230.0" text="Gracz 2" />
       <TextField fx:id="tfPlayer2" layoutX="402.0" layoutY="254.0" prefHeight="18.0" prefWidth="150.0" />
       <Button fx:id="bStart" layoutX="451.0" layoutY="295.0" mnemonicParsing="false" onMouseClicked="#bStartClick" text="START" />
-      <Button fx:id="bReset" layoutX="450.0" layoutY="350.0" mnemonicParsing="false" onMouseClicked="#bResetClick" text="RESET" />
+      <Ellipse fx:id="winEllipse" fill="#ffffff00" layoutX="385.0" layoutY="184.0" radiusX="100.0" radiusY="39.0" stroke="RED" strokeType="INSIDE" strokeWidth="10.0" />
+      <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="200.0" layoutX="374.0" layoutY="155.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
